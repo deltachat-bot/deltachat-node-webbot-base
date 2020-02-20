@@ -6,7 +6,7 @@ For further information on DeltaChat bots see <https://bots.delta.chat/>.
 
 ### Prerequisites
 
-To build a bot with this library you need to have nodejs and npm installed. Get those from your system's package manager. E.g. on Debian/Ubuntu-based systems: `apt install npm`.
+To build a bot with this library you need to have NodeJS >= 7.6 and NPM installed. Get those from your system's package manager. E.g. on Debian/Ubuntu-based systems: `apt install npm`.
 
 To run, the bot needs an email-account that it can reach via IMAP and SMTP.
 
