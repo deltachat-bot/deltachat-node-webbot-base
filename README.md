@@ -45,7 +45,8 @@ var web_content = []
 const { deltachat, log, webApp, ensureAuthenticated } = require('deltachat-node-webbot-base')
 
 // Start the deltachat core engine and handle incoming messages.
-deltachat.start((chat, message) => {
+// This might take some seconds, thus we save the promise and use it below.
+const dc_started = deltachat.start((chat, message) => {
   // Save text messages to be viewable on the web.
   let messageText = message.getText()
   if (messageText != '') {
@@ -70,10 +71,15 @@ router.get('/', ensureAuthenticated, (request, response) => {
 // Hook our web-app into the base web-app. We could specify a sub-path here.
 webApp.use('/', router)
 
-// Run the web-app.
+// Setup the web-app.
 const server = require('http').createServer(webApp)
 const port = 3000
-server.listen(port, '127.0.0.1', () => {
-  log(`Listening on http://127.0.0.1:${port}`)
-})
+
+// When the deltachat setup is done, run the web-app.
+// If we would start the web-app earlier, deltachat e.g. might not be ready yet to generate QR-codes.
+dc_started.then(() => {
+  server.listen(port, '127.0.0.1', () => {
+    log(`Listening on http://127.0.0.1:${port}`)
+  })
+}).catch(console.error)
 ```
