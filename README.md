@@ -2,6 +2,14 @@
 
 A simple library for building web-integrated Delta Chat bots.
 
+This is a thin layer on top of [deltachat-node-bot-base](https://github.com/deltachat-bot/deltachat-node-bot-base), that helps to write web-interacting bots that might require authentication using Delta Chat.
+
+It provides a basic web-app using the "express"-framework, that you can hook your own code into. This way you have a bridge between Delta Chat and the web, which means that you e.g. ould make content from a chat publicly visible on the web, or you could send data posted to the web-app into a Delta Chat chat.
+
+Optionally, if you use the `ensureAuthenticated` middleware (see below for an example), the basic web-app will respond to a web request with a page that shows a QR-code. Users must scan this QR-code using their Delta Chat app in order to authenticate with their email address used in the app. Only if this succeeds they get to see the protected content in their browser. 
+
+(Technical background: The authentication works through Delta Chat without further manual interaction, as the the user's app follows the invitation into a verified group created by the bot, and through this proceedure proves that the used email address is actually under their control.)
+
 For further information on DeltaChat bots see <https://bots.delta.chat/>.
 
 ### Prerequisites
