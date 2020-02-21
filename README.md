@@ -23,13 +23,13 @@ npm install --save git://github.com/deltachat-bot/deltachat-node-webbot-base
 
 ### Configuration
 
-Configure the bot by writing its email-address and password into `config/local.json`. E.g.:
+Configure the bot by writing its email-address and password into `config/local.json` like this:
 
-```bash
-echo '{
-"email_address": "bot@example.net",
-"email_password": "secretandsecure"
-}' > config/local.json
+```json
+{
+  "email_address": "bot@example.net",
+  "email_password": "secretandsecure"
+}
 ```
 
 ### Usage
