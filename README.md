@@ -56,7 +56,8 @@ var web_content = []
 const { deltachat, log, webApp, ensureAuthenticated } = require('deltachat-node-webbot-base')
 
 // Start the deltachat core engine and handle incoming messages.
-// This might take some seconds, thus we save the promise and use it below.
+// This might take some seconds, thus we save the returned promise and wait for
+// it below.
 const dc_started = deltachat.start((chat, message) => {
   // Save text messages to be viewable on the web.
   let messageText = message.getText()
