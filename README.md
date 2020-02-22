@@ -32,9 +32,18 @@ Install via npm from the repository:
 npm install --save git://github.com/deltachat-bot/deltachat-node-webbot-base
 ```
 
-### Configuration
+### Usage
 
-Configure the bot by writing its email-address and password into `config/local.json` like this:
+Here's some example code that could give you an idea.
+It renders all received text messages on a website that is accessible for everyone who authenticated using their Delta Chat app.
+
+To run it, first install the dependencies using NPM in a fresh directory:
+```bash
+npm install git://github.com/deltachat-bot/deltachat-node-webbot-base
+npm install express
+```
+
+Then configure the bot by writing its email-address and password into `config/local.json` like this:
 
 ```json
 {
@@ -43,11 +52,8 @@ Configure the bot by writing its email-address and password into `config/local.j
 }
 ```
 
-### Usage
 
-Here's some example code that could give you an idea.
-
-To run it you have to install the 'express' package first: `npm install --save express`
+Now put the following code into a file (e.g. called `web-bot.js`) and run it with `node web-bot.js`.
 
 ```javascript
 
