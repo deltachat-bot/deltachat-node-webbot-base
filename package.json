@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "A simple library for building web-integrated Delta Chat bots.",
   "main": "src/index.js",
+  "scripts": {
+    "test": "npx mocha --exit --timeout 10000",
+    "start": "node run"
+  },
   "author": "",
   "license": "GPL-3.0",
   "homepage": "https://github.com/deltachat-bot/deltachat-node-bot-base",
@@ -15,5 +19,8 @@
     "qrcode": "^1.4.4",
     "uuid": "^3.3.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0"
+  }
 }
