@@ -60,6 +60,7 @@ webApp.get('/requestQR', (req, res) => {
       req.session.groupId = group_id
       res.json({ qr_code_data_url, qr_data })
     })
+    .catch(console.error)
 })
 
 /**
