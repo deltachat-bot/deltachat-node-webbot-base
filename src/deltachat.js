@@ -21,14 +21,32 @@ deltachat.getOtherContactsInChat = (chatId) => {
  * have a verified connection to the user now. The group is actually just a
  * vehicle.
  */
-deltachat.on('DC_EVENT_SECUREJOIN_MEMBER_ADDED', (chatId, contactId) => {
-  log(`Group ${chatId} was successfully created and joined by contact ${contactId}`)
+const sayByeAndLeave = (chatId, messageId) => {
+  const message = deltachat.getMessage(messageId)
+  if (! message.isInfo()) {
+    // We only care for informational messages here.
+    return true
+  }
+  const messageText = message.getText()
+  const match = messageText.match(/\(?(\S+@\S+?)\)? added by me\.$/)
+  if (! match || ! match[1]) {
+    return true
+  }
+
+  const contact_address = match[1]
+  log(`Group ${chatId} was successfully created and joined by ${contact_address}`)
   log(`Sending you-may-leave-message to chat ${chatId}`)
-  deltachat.sendMessage(chatId, "You may leave and remove this chat now.")
-  log(`Leaving chat ${chatId}`)
-  deltachat.removeContactFromChat(chatId, DC_CONTACT_ID_SELF)
-  log(`Deleting chat ${chatId}`)
-  deltachat.deleteChat(chatId)
-})
+  deltachat.sendMessage(chatId, "Hello! :)\n\nThis chat is only a vehicle to connect you with me (the login bot). You may leave and remove this chat now.\n\nGood bye!")
+  // Delay leaving and deleting chat because the browser<->web_app process
+  // might be slower than this (the browser checks every 5s) and still need this chat.
+  setTimeout(() => {
+    log(`Delayed: Leaving chat ${chatId}`)
+    deltachat.removeContactFromChat(chatId, DC_CONTACT_ID_SELF)
+    log(`Delayed: Deleting chat ${chatId}`)
+    deltachat.deleteChat(chatId)
+  }, 6000)
+}
+
+deltachat.on('DC_EVENT_MSG_DELIVERED', sayByeAndLeave)
 
 module.exports = deltachat
