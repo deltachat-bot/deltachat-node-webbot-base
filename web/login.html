@@ -15,12 +15,23 @@
     <p>Scan the QR code with your Delta Chat app to authenticate yourself with your email address!</p>
     <div id="loading">Loading</div>
     <img class="qr hidden" id="qr" src="">
-    <br>
     <a class="manual-link hidden" href='#' id="qr_content">Manual link</a>
+    <a class="manual-link clipboard-link hidden" href='#' id="copy-to-clipboard">Copy data to clipboard</a>
+    <input style="position: absolute; left: -9999px" readonly='true' id="qr-data" value="">
     <div id="error"></div>
   </main>
   <script>
     const D = id => document.getElementById(id)
+    function copyDataToClipboard(ev) {
+      ev.preventDefault()
+      var elem = D('qr-data')
+      elem.focus()
+      elem.select()
+      document.execCommand("copy")
+    }
+
+    D('copy-to-clipboard').addEventListener("click", copyDataToClipboard)
+
     function requestQR() {
       var req = new XMLHttpRequest()
       req.open("GET", "/requestQR")
@@ -31,11 +42,13 @@
           if(data.qr_code_data_url) {
             D('qr').src = data.qr_code_data_url
             D('qr_content').href = data.qr_data
+            D('qr-data').value = data.qr_data
           } else {
             throw new Error("Data is undefined")
           }
           D('qr').classList.remove('hidden')
           D('qr_content').classList.remove('hidden')
+          D('copy-to-clipboard').classList.remove('hidden')
           D('loading').classList.add('hidden')
         } catch (error) {
           D('error').innerHTML = `Couldn't get the QR code, please reload the page: ${this.responseText}`

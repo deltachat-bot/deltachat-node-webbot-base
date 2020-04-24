@@ -47,8 +47,7 @@ h1 {
 
 a.manual-link {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 1em auto;
     width: max-content;
     font-family: sans-serif;
     background-color:#444;
@@ -56,6 +55,10 @@ a.manual-link {
     border-radius: 5px;
     padding: 10px;
     text-decoration: none;
+}
+
+a.clipboard-link {
+    background-color: #bbb;
 }
 
 p {
