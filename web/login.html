@@ -71,14 +71,7 @@
           same as before. For equal URLs, browsers apparently don't send a
           cookie they didn't have when requesting the page for the first time.
            */
-          var url = location.href
-          if (url.indexOf('?') > 0) {
-              url += '&'
-          } else {
-              url += '?'
-          }
-          url += 'yes=no'
-          location.href = url
+          location.search += "&yes=no"
         } else {
           setTimeout(checkStatus, 5000)
         }
